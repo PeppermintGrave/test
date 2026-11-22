@@ -1,0 +1,590 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b0b">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+<title>PeppermintGrave | Shields Showcase</title>
+
+<style>
+:root {
+    --bg: #080b0b;
+    --panel: #101716;
+    --panel2: #141e1b;
+    --border: #24332e;
+    --green: #72fbd1;
+    --green2: #35b997;
+    --text: #e1eee8;
+    --muted: #82958b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background:
+        radial-gradient(ellipse at 50% -20%, #174438 0%, transparent 55%),
+        var(--bg);
+    color: var(--text);
+    font-family: "Courier New", monospace;
+    min-height: 100vh;
+}
+
+header {
+    padding: 65px 20px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    color: var(--green);
+    font-size: 13px;
+    letter-spacing: 5px;
+    margin-bottom: 24px;
+}
+
+h1 {
+    font-family: Impact, sans-serif;
+    font-size: clamp(36px, 7vw, 68px);
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+h1 span {
+    color: var(--green);
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 15px;
+    line-height: 1.8;
+}
+
+.domain {
+    display: inline-block;
+    margin-top: 23px;
+    border: 1px solid #315d4d;
+    padding: 10px 17px;
+    color: var(--green);
+    font-size: 12px;
+    background: #10241e;
+    border-radius: 5px;
+}
+
+.container {
+    max-width: 1150px;
+    padding: 35px 20px;
+    margin: auto;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+input, select {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 13px;
+    border-radius: 5px;
+    outline: none;
+    font-family: inherit;
+}
+
+input {
+    flex: 1;
+    min-width: 180px;
+}
+
+input:focus, select:focus {
+    border-color: var(--green2);
+}
+
+.section {
+    margin: 40px 0;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 13px;
+    margin-bottom: 18px;
+}
+
+.section-title h2 {
+    color: var(--green);
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.count {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 13px;
+}
+
+.badge-card {
+    background: linear-gradient(145deg, var(--panel2), var(--panel));
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 17px;
+    min-width: 0;
+    transition: .2s;
+}
+
+.badge-card:hover {
+    border-color: var(--green2);
+    transform: translateY(-2px);
+}
+
+.badge-name {
+    font-size: 12px;
+    color: var(--text);
+    margin-bottom: 15px;
+}
+
+.badge-preview {
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.badge-preview img {
+    max-width: 100%;
+    height: auto;
+}
+
+.badge-url {
+    background: #080d0b;
+    border: 1px solid #25332e;
+    border-radius: 4px;
+    padding: 9px;
+    color: #8ea79a;
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    background: #19382d;
+    border: 1px solid #315b48;
+    color: var(--green);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 10px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button:hover {
+    background: #245541;
+}
+
+button.secondary {
+    background: #171f1c;
+    border-color: var(--border);
+    color: var(--muted);
+}
+
+.empty {
+    display: none;
+    color: var(--muted);
+    text-align: center;
+    padding: 50px;
+}
+
+footer {
+    text-align: center;
+    padding: 35px 15px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 2;
+}
+
+footer span {
+    color: var(--green);
+}
+
+@media(max-width: 500px) {
+    header {
+        padding-top: 45px;
+    }
+    .container {
+        padding: 25px 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">PEPPERMINT STUDIOS</div>
+
+    <h1>SHIELDS<span>.</span>IO</h1>
+
+    <p class="subtitle">
+        A collection of Shields.io badges.<br>
+        Explore. Preview. Copy. Integrate.
+    </p>
+
+    <div class="domain">peppermint-grave.is-pro.dev</div>
+</header>
+
+<main class="container">
+
+    <div class="toolbar">
+        <input
+            type="search"
+            id="search"
+            placeholder="Search badges..."
+            autocomplete="off"
+        >
+
+        <select id="style">
+            <option value="flat">Flat</option>
+            <option value="flat-square">Flat Square</option>
+            <option value="plastic">Plastic</option>
+            <option value="for-the-badge">For The Badge</option>
+            <option value="social">Social</option>
+        </select>
+    </div>
+
+    <div id="showcase"></div>
+
+    <div class="empty" id="empty">
+        No badges found.
+    </div>
+
+</main>
+
+<footer>
+    <span>❧ PeppermintGrave</span><br>
+    Shields.io Badge Showcase<br>
+    Powered by Shields.io and Simple Icons.
+</footer>
+
+<script>
+const categories = {
+    "Development": [
+        ["GitHub", "github", "GitHub", "181717"],
+        ["Git", "git", "Git", "F05032"],
+        ["GitHub Actions", "githubactions", "Actions", "2088FF"],
+        ["Visual Studio Code", "visualstudiocode", "VS Code", "007ACC"],
+        ["HTML5", "html5", "HTML5", "E34F26"],
+        ["CSS3", "css3", "CSS3", "1572B6"],
+        ["JavaScript", "javascript", "JavaScript", "F7DF1E"],
+        ["TypeScript", "typescript", "TypeScript", "3178C6"],
+        ["Python", "python", "Python", "3776AB"],
+        ["Node.js", "nodedotjs", "Node.js", "339933"],
+        ["React", "react", "React", "61DAFB"],
+        ["Next.js", "nextdotjs", "Next.js", "000000"],
+        ["Vue.js", "vuedotjs", "Vue.js", "4FC08D"],
+        ["Angular", "angular", "Angular", "DD0031"],
+        ["Svelte", "svelte", "Svelte", "FF3E00"],
+        ["PHP", "php", "PHP", "777BB4"],
+        ["Java", "openjdk", "Java", "437291"],
+        ["C", "c", "C", "A8B9CC"],
+        ["C++", "cplusplus", "C++", "00599C"],
+        ["C#", "csharp", "CSharp", "512BD4"],
+        ["Rust", "rust", "Rust", "000000"],
+        ["Go", "go", "Go", "00ADD8"],
+        ["Ruby", "ruby", "Ruby", "CC342D"],
+        ["Swift", "swift", "Swift", "F05138"],
+        ["Kotlin", "kotlin", "Kotlin", "7F52FF"]
+    ],
+
+    "Platforms & Operating Systems": [
+        ["Windows", "windows", "Windows", "0078D4"],
+        ["Linux", "linux", "Linux", "FCC624"],
+        ["Android", "android", "Android", "3DDC84"],
+        ["Apple", "apple", "Apple", "999999"],
+        ["Ubuntu", "ubuntu", "Ubuntu", "E95420"],
+        ["Debian", "debian", "Debian", "A81D33"],
+        ["Fedora", "fedora", "Fedora", "51A2DA"],
+        ["Arch Linux", "archlinux", "Arch", "1793D1"],
+        ["Raspberry Pi", "raspberrypi", "Raspberry Pi", "A22846"],
+        ["iOS", "ios", "iOS", "000000"]
+    ],
+
+    "Social & Communication": [
+        ["Discord", "discord", "Discord", "5865F2"],
+        ["YouTube", "youtube", "YouTube", "FF0000"],
+        ["Twitch", "twitch", "Twitch", "9146FF"],
+        ["X", "x", "X", "000000"],
+        ["Reddit", "reddit", "Reddit", "FF4500"],
+        ["Telegram", "telegram", "Telegram", "26A5E4"],
+        ["WhatsApp", "whatsapp", "WhatsApp", "25D366"],
+        ["Facebook", "facebook", "Facebook", "0866FF"],
+        ["LinkedIn", "linkedin", "LinkedIn", "0A66C2"],
+        ["Mastodon", "mastodon", "Mastodon", "6364FF"],
+        ["Pinterest", "pinterest", "Pinterest", "BD081C"],
+        ["Snapchat", "snapchat", "Snapchat", "FFFC00"],
+        ["TikTok", "tiktok", "TikTok", "000000"],
+        ["Instagram", "instagram", "Instagram", "E4405F"],
+        ["Spotify", "spotify", "Spotify", "1DB954"]
+    ],
+
+    "Web & Infrastructure": [
+        ["Cloudflare", "cloudflare", "Cloudflare", "F38020"],
+        ["Vercel", "vercel", "Vercel", "000000"],
+        ["Netlify", "netlify", "Netlify", "00C7B7"],
+        ["Firebase", "firebase", "Firebase", "DD2C00"],
+        ["Supabase", "supabase", "Supabase", "3FCF8E"],
+        ["Docker", "docker", "Docker", "2496ED"],
+        ["Kubernetes", "kubernetes", "Kubernetes", "326CE5"],
+        ["Nginx", "nginx", "Nginx", "009639"],
+        ["Apache", "apache", "Apache", "D22128"],
+        ["Amazon AWS", "amazonaws", "AWS", "232F3E"],
+        ["Google Cloud", "googlecloud", "Google Cloud", "4285F4"],
+        ["Microsoft Azure", "microsoftazure", "Azure", "0078D4"],
+        ["GitHub Pages", "githubpages", "Pages", "222222"],
+        ["Heroku", "heroku", "Heroku", "430098"]
+    ],
+
+    "Databases": [
+        ["MySQL", "mysql", "MySQL", "4479A1"],
+        ["PostgreSQL", "postgresql", "PostgreSQL", "4169E1"],
+        ["MongoDB", "mongodb", "MongoDB", "47A248"],
+        ["SQLite", "sqlite", "SQLite", "003B57"],
+        ["Redis", "redis", "Redis", "FF4438"],
+        ["MariaDB", "mariadb", "MariaDB", "003545"],
+        ["Supabase", "supabase", "Supabase", "3FCF8E"],
+        ["Prisma", "prisma", "Prisma", "2D3748"],
+        ["Django", "django", "Django", "092E20"]
+    ],
+
+    "Design & Creative": [
+        ["Figma", "figma", "Figma", "F24E1E"],
+        ["Adobe Photoshop", "adobephotoshop", "Photoshop", "31A8FF"],
+        ["Adobe Illustrator", "adobeillustrator", "Illustrator", "FF9A00"],
+        ["Blender", "blender", "Blender", "E87D0D"],
+        ["Canva", "canva", "Canva", "00C4CC"],
+        ["GIMP", "gimp", "GIMP", "5C5543"],
+        ["Aseprite", "aseprite", "Aseprite", "7D929E"],
+        ["Krita", "krita", "Krita", "3BABFF"],
+        ["Inkscape", "inkscape", "Inkscape", "000000"]
+    ],
+
+    "Gaming": [
+        ["Roblox", "roblox", "Roblox", "000000"],
+        ["Minecraft", "minecraft", "Minecraft", "62B47A"],
+        ["Unity", "unity", "Unity", "FFFFFF"],
+        ["Unreal Engine", "unrealengine", "Unreal Engine", "0E1128"],
+        ["Godot Engine", "godotengine", "Godot", "478CBF"],
+        ["Steam", "steam", "Steam", "000000"],
+        ["Epic Games", "epicgames", "Epic Games", "313131"],
+        ["PlayStation", "playstation", "PlayStation", "003791"],
+        ["Xbox", "xbox", "Xbox", "107C10"],
+        ["Nintendo", "nintendo", "Nintendo", "E60012"]
+    ],
+
+    "Package Managers & Tools": [
+        ["npm", "npm", "npm", "CB3837"],
+        ["Yarn", "yarn", "Yarn", "2C8EBB"],
+        ["pnpm", "pnpm", "pnpm", "F69220"],
+        ["Bun", "bun", "Bun", "000000"],
+        ["Webpack", "webpack", "Webpack", "8DD6F9"],
+        ["Vite", "vite", "Vite", "646CFF"],
+        ["ESLint", "eslint", "ESLint", "4B32C3"],
+        ["Prettier", "prettier", "Prettier", "F7B93E"]
+    ]
+};
+
+const styles = [
+    "flat",
+    "flat-square",
+    "plastic",
+    "for-the-badge",
+    "social"
+];
+
+const showcase = document.getElementById("showcase");
+const search = document.getElementById("search");
+const styleSelect = document.getElementById("style");
+const empty = document.getElementById("empty");
+
+function createBadgeUrl(item, style) {
+    const [name, logo, message, color] = item;
+
+    const params = new URLSearchParams({
+        style,
+        logo,
+        logoColor: "white",
+        label: name,
+        color,
+        cacheSeconds: "86400"
+    });
+
+    return "https://img.shields.io/static/v1?" + params.toString();
+}
+
+function createCard(item, style) {
+    const [name] = item;
+    const url = createBadgeUrl(item, style);
+
+    return `
+        <article class="badge-card" data-name="${name.toLowerCase()}">
+            <div class="badge-name">${name}</div>
+
+            <div class="badge-preview">
+                <img
+                    src="${url}"
+                    alt="${name} badge"
+                    loading="lazy"
+                >
+            </div>
+
+            <div class="badge-url">${url}</div>
+
+            <div class="actions">
+                <button onclick="copyText('${escapeJS(url)}')">
+                    COPY URL
+                </button>
+
+                <button class="secondary"
+                    onclick="copyText('${escapeJS(`<img src="${url}" alt="${name}">`)}')">
+                    HTML
+                </button>
+
+                <button class="secondary"
+                    onclick="copyText('${escapeJS(`![${name}](${url})`)}')">
+                    MD
+                </button>
+            </div>
+        </article>
+    `;
+}
+
+function escapeJS(value) {
+    return value
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/\n/g, "\\n");
+}
+
+function render() {
+    const query = search.value.toLowerCase().trim();
+    const style = styleSelect.value;
+
+    let html = "";
+    let visibleCount = 0;
+
+    for (const [category, items] of Object.entries(categories)) {
+        const filtered = items.filter(item =>
+            item[0].toLowerCase().includes(query) ||
+            category.toLowerCase().includes(query)
+        );
+
+        if (!filtered.length) continue;
+
+        visibleCount += filtered.length;
+
+        html += `
+            <section class="section">
+                <div class="section-title">
+                    <h2>${category}</h2>
+                    <span class="count">
+                        ${filtered.length} BADGES
+                    </span>
+                </div>
+
+                <div class="grid">
+                    ${filtered.map(item =>
+                        createCard(item, style)
+                    ).join("")}
+                </div>
+            </section>
+        `;
+    }
+
+    showcase.innerHTML = html;
+    empty.style.display = visibleCount ? "none" : "block";
+}
+
+async function copyText(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        showToast("Copied successfully!");
+    } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("Copied!");
+    }
+}
+
+let toastTimer;
+
+function showToast(message) {
+    let toast = document.getElementById("toast");
+
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "toast";
+
+        Object.assign(toast.style, {
+            position: "fixed",
+            bottom: "25px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "#19382d",
+            border: "1px solid #72fbd1",
+            color: "#72fbd1",
+            padding: "12px 20px",
+            borderRadius: "5px",
+            fontSize: "12px",
+            zIndex: "9999"
+        });
+
+        document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.style.display = "none";
+    }, 1800);
+}
+
+search.addEventListener("input", render);
+styleSelect.addEventListener("change", render);
+
+render();
+</script>
+
+</body>
+</html>
