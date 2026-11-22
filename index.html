@@ -1,24 +1,29 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b0b">
+<meta name="theme-color" content="#090d10">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
-<title>PeppermintGrave | Shields Showcase</title>
+<meta name="description" content="Explore, customize and generate Shields.io badges. Browse developer technologies, preview badges and copy ready-to-use code.">
+<title>Shields Explorer | Badge Library</title>
 
 <style>
 :root {
-    --bg: #080b0b;
-    --panel: #101716;
-    --panel2: #141e1b;
-    --border: #24332e;
+    color-scheme: dark;
+    --bg: #090d10;
+    --panel: #10171c;
+    --panel2: #151e24;
+    --panel3: #1a272d;
+    --border: #28373e;
     --green: #72fbd1;
     --green2: #35b997;
-    --text: #e1eee8;
-    --muted: #82958b;
+    --cyan: #69d9f5;
+    --text: #e5efed;
+    --muted: #91a39f;
+    --danger: #ff7777;
+    --radius: 10px;
+    --shadow: 0 12px 35px rgba(0,0,0,.2);
 }
 
 * {
@@ -27,33 +32,63 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
+    min-height: 100vh;
     background:
-        radial-gradient(ellipse at 50% -20%, #174438 0%, transparent 55%),
+        radial-gradient(ellipse at 50% -20%, #174438 0%, transparent 48%),
+        radial-gradient(ellipse at 100% 60%, #10242a 0%, transparent 45%),
         var(--bg);
     color: var(--text);
     font-family: "Courier New", monospace;
-    min-height: 100vh;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 header {
-    padding: 65px 20px 40px;
     text-align: center;
+    padding: 65px 20px 38px;
     border-bottom: 1px solid var(--border);
 }
 
 .brand {
     color: var(--green);
-    font-size: 13px;
-    letter-spacing: 5px;
-    margin-bottom: 24px;
+    font-size: 11px;
+    letter-spacing: 6px;
+    margin-bottom: 22px;
 }
 
 h1 {
     font-family: Impact, sans-serif;
-    font-size: clamp(36px, 7vw, 68px);
+    font-size: clamp(40px, 8vw, 76px);
     font-weight: 400;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
 h1 span {
@@ -62,106 +97,216 @@ h1 span {
 
 .subtitle {
     color: var(--muted);
-    font-size: 13px;
-    margin-top: 15px;
-    line-height: 1.8;
+    font-size: 12px;
+    line-height: 1.9;
+    margin-top: 14px;
 }
 
-.domain {
-    display: inline-block;
-    margin-top: 23px;
-    border: 1px solid #315d4d;
-    padding: 10px 17px;
-    color: var(--green);
-    font-size: 12px;
-    background: #10241e;
+.header-tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 24px;
+}
+
+.header-tag {
+    padding: 8px 13px;
+    border: 1px solid var(--border);
     border-radius: 5px;
+    color: var(--green);
+    background: rgba(16,35,30,.7);
+    font-size: 10px;
 }
 
 .container {
-    max-width: 1150px;
-    padding: 35px 20px;
+    max-width: 1250px;
     margin: auto;
+    padding: 30px 20px 60px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: linear-gradient(145deg,var(--panel2),var(--panel));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 17px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 23px;
+    color: var(--green);
+    margin-bottom: 5px;
+}
+
+.stat span {
+    font-size: 10px;
+    color: var(--muted);
 }
 
 .toolbar {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 16px;
 }
 
 input, select {
+    min-width: 0;
     background: var(--panel);
     border: 1px solid var(--border);
     color: var(--text);
-    padding: 13px;
-    border-radius: 5px;
-    outline: none;
-    font-family: inherit;
+    padding: 12px 14px;
+    border-radius: 6px;
+    min-height: 44px;
 }
 
 input {
     flex: 1;
-    min-width: 180px;
+    min-width: 190px;
 }
 
 input:focus, select:focus {
     border-color: var(--green2);
 }
 
+select {
+    cursor: pointer;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.filter {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--muted);
+    padding: 10px 13px;
+    border-radius: 5px;
+    font-size: 10px;
+    min-height: 40px;
+    transition: .2s;
+}
+
+.filter:hover {
+    border-color: var(--green2);
+    color: var(--text);
+}
+
+.filter.active {
+    color: var(--green);
+    background: #15342b;
+    border-color: var(--green2);
+}
+
+.results-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 10px;
+    margin: 0 0 12px;
+}
+
 .section {
-    margin: 40px 0;
+    margin: 38px 0;
 }
 
 .section-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
     border-bottom: 1px solid var(--border);
     padding-bottom: 13px;
-    margin-bottom: 18px;
+    margin-bottom: 17px;
 }
 
 .section-title h2 {
     color: var(--green);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 400;
+    overflow-wrap: anywhere;
 }
 
 .count {
     color: var(--muted);
-    font-size: 11px;
+    font-size: 10px;
+    white-space: nowrap;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill,minmax(min(100%,260px),1fr));
     gap: 13px;
 }
 
 .badge-card {
-    background: linear-gradient(145deg, var(--panel2), var(--panel));
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 17px;
     min-width: 0;
-    transition: .2s;
+    padding: 17px;
+    background: linear-gradient(145deg,var(--panel2),var(--panel));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: .2s ease;
 }
 
 .badge-card:hover {
     border-color: var(--green2);
     transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 17px;
 }
 
 .badge-name {
     font-size: 12px;
-    color: var(--text);
-    margin-bottom: 15px;
+    overflow-wrap: anywhere;
+}
+
+.badge-category {
+    color: var(--muted);
+    font-size: 9px;
+    margin-top: 5px;
+}
+
+.favorite {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 19px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 5px;
+}
+
+.favorite:hover {
+    background: #26322e;
+}
+
+.favorite.active {
+    color: #ffd36e;
 }
 
 .badge-preview {
-    min-height: 35px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -171,14 +316,20 @@ input:focus, select:focus {
 .badge-preview img {
     max-width: 100%;
     height: auto;
+    min-height: 20px;
+}
+
+.badge-preview .error {
+    color: var(--danger);
+    font-size: 10px;
 }
 
 .badge-url {
-    background: #080d0b;
-    border: 1px solid #25332e;
-    border-radius: 4px;
-    padding: 9px;
-    color: #8ea79a;
+    background: #080d0f;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px;
+    color: #91aaa0;
     font-size: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -188,44 +339,198 @@ input:focus, select:focus {
 
 .actions {
     display: flex;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 7px;
 }
 
-button {
+.btn {
     background: #19382d;
     border: 1px solid #315b48;
     color: var(--green);
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-family: inherit;
+    border-radius: 5px;
+    padding: 9px 11px;
+    min-height: 40px;
     font-size: 10px;
-    cursor: pointer;
     transition: .2s;
 }
 
-button:hover {
+.btn:hover {
     background: #245541;
 }
 
-button.secondary {
-    background: #171f1c;
+.btn.secondary {
+    background: #171f24;
     border-color: var(--border);
     color: var(--muted);
 }
 
+.btn.secondary:hover {
+    color: var(--text);
+    border-color: var(--green2);
+}
+
+.panel {
+    background: linear-gradient(145deg,var(--panel2),var(--panel));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    margin: 35px 0;
+}
+
+.panel h2 {
+    color: var(--green);
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.panel-description {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.generator-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 13px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field label {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.field input, .field select {
+    width: 100%;
+}
+
+.color-input {
+    padding: 5px;
+    height: 44px;
+}
+
+.generator-preview {
+    background: #080d0f;
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 18px;
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.generator-preview img {
+    max-width: 100%;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--muted);
+    border-radius: 5px;
+    font-size: 10px;
+    min-height: 42px;
+}
+
+.tab.active {
+    color: var(--green);
+    border-color: var(--green2);
+    background: #15342b;
+}
+
+.collection-controls {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.collection-controls input {
+    max-width: 300px;
+}
+
+.collection-card {
+    border: 1px solid var(--border);
+    background: #0c1317;
+    border-radius: 7px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.collection-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.collection-card-header h3 {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--green);
+    overflow-wrap: anywhere;
+}
+
+.collection-empty {
+    font-size: 10px;
+    color: var(--muted);
+    padding: 10px 0;
+}
+
 .empty {
     display: none;
-    color: var(--muted);
     text-align: center;
-    padding: 50px;
+    padding: 45px 15px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 2;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+}
+
+#toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #19382d;
+    border: 1px solid var(--green);
+    color: var(--green);
+    padding: 13px 20px;
+    border-radius: 7px;
+    font-size: 11px;
+    z-index: 9999;
+    box-shadow: var(--shadow);
+    max-width: calc(100% - 30px);
+    text-align: center;
 }
 
 footer {
     text-align: center;
-    padding: 35px 15px;
+    padding: 32px 15px;
     border-top: 1px solid var(--border);
     color: var(--muted);
-    font-size: 11px;
+    font-size: 10px;
     line-height: 2;
 }
 
@@ -233,12 +538,59 @@ footer span {
     color: var(--green);
 }
 
-@media(max-width: 500px) {
+[hidden] {
+    display: none !important;
+}
+
+@media(max-width:600px) {
     header {
         padding-top: 45px;
     }
+
     .container {
-        padding: 25px 13px;
+        padding: 22px 13px 45px;
+    }
+
+    .stats {
+        gap: 7px;
+    }
+
+    .stat {
+        padding: 12px 9px;
+    }
+
+    .stat strong {
+        font-size: 18px;
+    }
+
+    .stat span {
+        font-size: 9px;
+    }
+
+    .generator-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar > * {
+        width: 100%;
+    }
+
+    .collection-controls input {
+        max-width: none;
+        width: 100%;
+    }
+
+    .results-info {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
     }
 }
 </style>
@@ -247,343 +599,1121 @@ footer span {
 <body>
 
 <header>
-    <div class="brand">PEPPERMINT STUDIOS</div>
+    <div class="brand">BADGE DISCOVERY PLATFORM</div>
 
-    <h1>SHIELDS<span>.</span>IO</h1>
+    <h1>SHIELDS<span>.</span>EXPLORER</h1>
 
     <p class="subtitle">
-        A collection of Shields.io badges.<br>
-        Explore. Preview. Copy. Integrate.
+        Discover. Customize. Generate. Integrate.<br>
+        A library for developer badges and Shields.io.
     </p>
 
-    <div class="domain">peppermint-grave.is-pro.dev</div>
+    <div class="header-tags">
+        <span class="header-tag">BADGE LIBRARY</span>
+        <span class="header-tag">LIVE PREVIEWS</span>
+        <span class="header-tag">CUSTOM GENERATOR</span>
+        <span class="header-tag">PERSONAL COLLECTIONS</span>
+    </div>
 </header>
 
 <main class="container">
+
+    <div class="stats">
+        <div class="stat">
+            <strong id="totalCount">0</strong>
+            <span>AVAILABLE BADGES</span>
+        </div>
+
+        <div class="stat">
+            <strong id="categoryCount">0</strong>
+            <span>CATEGORIES</span>
+        </div>
+
+        <div class="stat">
+            <strong id="favoriteCount">0</strong>
+            <span>YOUR FAVORITES</span>
+        </div>
+    </div>
 
     <div class="toolbar">
         <input
             type="search"
             id="search"
-            placeholder="Search badges..."
+            aria-label="Search badges"
+            placeholder="Search badges, technologies, logos..."
             autocomplete="off"
         >
 
-        <select id="style">
+        <select id="style" aria-label="Badge style">
             <option value="flat">Flat</option>
             <option value="flat-square">Flat Square</option>
             <option value="plastic">Plastic</option>
             <option value="for-the-badge">For The Badge</option>
             <option value="social">Social</option>
         </select>
+
+        <select id="sort" aria-label="Sort badges">
+            <option value="default">Default order</option>
+            <option value="az">Name A-Z</option>
+            <option value="za">Name Z-A</option>
+        </select>
+    </div>
+
+    <div class="filters" id="filters" aria-label="Badge categories"></div>
+
+    <div class="results-info">
+        <span id="resultCount">Showing all badges</span>
+        <span>Choose a badge to preview or copy its code.</span>
     </div>
 
     <div id="showcase"></div>
 
     <div class="empty" id="empty">
-        No badges found.
+        No badges found.<br>
+        Try another search or category.
+        <br><br>
+        <button class="btn secondary" id="clearFilters">CLEAR FILTERS</button>
     </div>
+
+    <section class="panel" id="generator">
+        <h2>Custom Badge Generator</h2>
+
+        <p class="panel-description">
+            Create your own badge with custom text, colors and logos.
+            Your badge is generated through Shields.io.
+        </p>
+
+        <div class="generator-grid">
+
+            <div class="field">
+                <label for="customLabel">Badge label</label>
+                <input id="customLabel" value="Project" maxlength="40">
+            </div>
+
+            <div class="field">
+                <label for="customMessage">Badge message</label>
+                <input id="customMessage" value="Active" maxlength="60">
+            </div>
+
+            <div class="field">
+                <label for="customColor">Message background</label>
+                <input class="color-input" type="color" id="customColor" value="#35b997">
+            </div>
+
+            <div class="field">
+                <label for="customLogo">Simple Icons logo slug</label>
+                <input id="customLogo" placeholder="github">
+            </div>
+
+            <div class="field">
+                <label for="customLogoColor">Logo color</label>
+                <input class="color-input" type="color" id="customLogoColor" value="#ffffff">
+            </div>
+
+            <div class="field">
+                <label for="customStyle">Badge style</label>
+                <select id="customStyle">
+                    <option value="flat">Flat</option>
+                    <option value="flat-square">Flat Square</option>
+                    <option value="plastic">Plastic</option>
+                    <option value="for-the-badge">For The Badge</option>
+                    <option value="social">Social</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="generator-preview">
+            <img id="customPreview" alt="Custom badge preview">
+            <span id="customPreviewError" class="error" hidden>Preview unavailable.</span>
+        </div>
+
+        <div class="actions" style="margin-top:15px">
+            <button class="btn" id="copyCustomUrl">COPY URL</button>
+            <button class="btn secondary" id="copyCustomHtml">COPY HTML</button>
+            <button class="btn secondary" id="copyCustomMd">COPY MARKDOWN</button>
+            <button class="btn secondary" id="copyCustomRst">COPY RST</button>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>Personal Library</h2>
+
+        <p class="panel-description">
+            Your saved badges, recently viewed items and collections.
+            Everything is stored locally in your browser.
+        </p>
+
+        <div class="tabs" role="tablist" aria-label="Personal library">
+            <button class="tab active" data-tab="favorites" role="tab" aria-selected="true">Favorites</button>
+            <button class="tab" data-tab="recent" role="tab" aria-selected="false">Recently Viewed</button>
+            <button class="tab" data-tab="collections" role="tab" aria-selected="false">Collections</button>
+        </div>
+
+        <div id="personalContent"></div>
+
+        <div class="empty" id="personalEmpty">
+            Nothing here yet.
+        </div>
+    </section>
 
 </main>
 
 <footer>
-    <span>❧ PeppermintGrave</span><br>
-    Shields.io Badge Showcase<br>
-    Powered by Shields.io and Simple Icons.
+    <span>SHIELDS EXPLORER</span><br>
+    An independent badge discovery interface.<br>
+    Badge images and generation powered by Shields.io.<br>
+    Logos provided through Simple Icons.
 </footer>
 
 <script>
+"use strict";
+
+/* Badge database */
+
 const categories = {
-    "Development": [
-        ["GitHub", "github", "GitHub", "181717"],
-        ["Git", "git", "Git", "F05032"],
-        ["GitHub Actions", "githubactions", "Actions", "2088FF"],
-        ["Visual Studio Code", "visualstudiocode", "VS Code", "007ACC"],
-        ["HTML5", "html5", "HTML5", "E34F26"],
-        ["CSS3", "css3", "CSS3", "1572B6"],
-        ["JavaScript", "javascript", "JavaScript", "F7DF1E"],
-        ["TypeScript", "typescript", "TypeScript", "3178C6"],
-        ["Python", "python", "Python", "3776AB"],
-        ["Node.js", "nodedotjs", "Node.js", "339933"],
-        ["React", "react", "React", "61DAFB"],
-        ["Next.js", "nextdotjs", "Next.js", "000000"],
-        ["Vue.js", "vuedotjs", "Vue.js", "4FC08D"],
-        ["Angular", "angular", "Angular", "DD0031"],
-        ["Svelte", "svelte", "Svelte", "FF3E00"],
-        ["PHP", "php", "PHP", "777BB4"],
-        ["Java", "openjdk", "Java", "437291"],
-        ["C", "c", "C", "A8B9CC"],
-        ["C++", "cplusplus", "C++", "00599C"],
-        ["C#", "csharp", "CSharp", "512BD4"],
-        ["Rust", "rust", "Rust", "000000"],
-        ["Go", "go", "Go", "00ADD8"],
-        ["Ruby", "ruby", "Ruby", "CC342D"],
-        ["Swift", "swift", "Swift", "F05138"],
-        ["Kotlin", "kotlin", "Kotlin", "7F52FF"]
-    ],
 
-    "Platforms & Operating Systems": [
-        ["Windows", "windows", "Windows", "0078D4"],
-        ["Linux", "linux", "Linux", "FCC624"],
-        ["Android", "android", "Android", "3DDC84"],
-        ["Apple", "apple", "Apple", "999999"],
-        ["Ubuntu", "ubuntu", "Ubuntu", "E95420"],
-        ["Debian", "debian", "Debian", "A81D33"],
-        ["Fedora", "fedora", "Fedora", "51A2DA"],
-        ["Arch Linux", "archlinux", "Arch", "1793D1"],
-        ["Raspberry Pi", "raspberrypi", "Raspberry Pi", "A22846"],
-        ["iOS", "ios", "iOS", "000000"]
-    ],
+"Development": [
+["GitHub","github","GitHub","181717"],
+["Git","git","Git","F05032"],
+["GitHub Actions","githubactions","Actions","2088FF"],
+["Visual Studio Code","visualstudiocode","VS Code","007ACC"],
+["HTML5","html5","HTML5","E34F26"],
+["CSS3","css3","CSS3","1572B6"],
+["JavaScript","javascript","JavaScript","F7DF1E"],
+["TypeScript","typescript","TypeScript","3178C6"],
+["Python","python","Python","3776AB"],
+["Node.js","nodedotjs","Node.js","339933"],
+["React","react","React","61DAFB"],
+["Next.js","nextdotjs","Next.js","000000"],
+["Vue.js","vuedotjs","Vue.js","4FC08D"],
+["Angular","angular","Angular","DD0031"],
+["Svelte","svelte","Svelte","FF3E00"],
+["PHP","php","PHP","777BB4"],
+["Java","openjdk","Java","437291"],
+["C","c","C","A8B9CC"],
+["C++","cplusplus","C++","00599C"],
+["C#","csharp","CSharp","512BD4"],
+["Rust","rust","Rust","000000"],
+["Go","go","Go","00ADD8"],
+["Ruby","ruby","Ruby","CC342D"],
+["Swift","swift","Swift","F05138"],
+["Kotlin","kotlin","Kotlin","7F52FF"],
+["Dart","dart","Dart","0175C2"],
+["Lua","lua","Lua","2C2D72"],
+["Perl","perl","Perl","39457E"],
+["R","r","R","276DC3"],
+["Scala","scala","Scala","DC322F"],
+["Elixir","elixir","Elixir","4B275F"],
+["Haskell","haskell","Haskell","5D4F85"],
+["Julia","julia","Julia","9558B2"],
+["Bash","gnubash","Bash","4EAA25"],
+["PowerShell","powershell","PowerShell","5391FE"],
+["Markdown","markdown","Markdown","000000"],
+["JSON","json","JSON","000000"],
+["YAML","yaml","YAML","CB171E"],
+["GraphQL","graphql","GraphQL","E10098"],
+["WebAssembly","webassembly","WASM","654FF0"],
+["V","v","V","5D87BF"]
+],
 
-    "Social & Communication": [
-        ["Discord", "discord", "Discord", "5865F2"],
-        ["YouTube", "youtube", "YouTube", "FF0000"],
-        ["Twitch", "twitch", "Twitch", "9146FF"],
-        ["X", "x", "X", "000000"],
-        ["Reddit", "reddit", "Reddit", "FF4500"],
-        ["Telegram", "telegram", "Telegram", "26A5E4"],
-        ["WhatsApp", "whatsapp", "WhatsApp", "25D366"],
-        ["Facebook", "facebook", "Facebook", "0866FF"],
-        ["LinkedIn", "linkedin", "LinkedIn", "0A66C2"],
-        ["Mastodon", "mastodon", "Mastodon", "6364FF"],
-        ["Pinterest", "pinterest", "Pinterest", "BD081C"],
-        ["Snapchat", "snapchat", "Snapchat", "FFFC00"],
-        ["TikTok", "tiktok", "TikTok", "000000"],
-        ["Instagram", "instagram", "Instagram", "E4405F"],
-        ["Spotify", "spotify", "Spotify", "1DB954"]
-    ],
+"Platforms & Operating Systems": [
+["Windows","windows","Windows","0078D4"],
+["Linux","linux","Linux","FCC624"],
+["Android","android","Android","3DDC84"],
+["Apple","apple","Apple","999999"],
+["Ubuntu","ubuntu","Ubuntu","E95420"],
+["Debian","debian","Debian","A81D33"],
+["Fedora","fedora","Fedora","51A2DA"],
+["Arch Linux","archlinux","Arch","1793D1"],
+["Raspberry Pi","raspberrypi","Raspberry Pi","A22846"],
+["iOS","ios","iOS","000000"],
+["macOS","macos","macOS","000000"],
+["Alpine Linux","alpinelinux","Alpine","0D597F"],
+["Kali Linux","kalilinux","Kali","557C94"],
+["Linux Mint","linuxmint","Mint","86BE43"],
+["CentOS","centos","CentOS","262577"],
+["FreeBSD","freebsd","FreeBSD","AB2B28"],
+["ChromeOS","googlechrome","ChromeOS","4285F4"],
+["GrapheneOS","grapheneos","GrapheneOS","0053A3"]
+],
 
-    "Web & Infrastructure": [
-        ["Cloudflare", "cloudflare", "Cloudflare", "F38020"],
-        ["Vercel", "vercel", "Vercel", "000000"],
-        ["Netlify", "netlify", "Netlify", "00C7B7"],
-        ["Firebase", "firebase", "Firebase", "DD2C00"],
-        ["Supabase", "supabase", "Supabase", "3FCF8E"],
-        ["Docker", "docker", "Docker", "2496ED"],
-        ["Kubernetes", "kubernetes", "Kubernetes", "326CE5"],
-        ["Nginx", "nginx", "Nginx", "009639"],
-        ["Apache", "apache", "Apache", "D22128"],
-        ["Amazon AWS", "amazonaws", "AWS", "232F3E"],
-        ["Google Cloud", "googlecloud", "Google Cloud", "4285F4"],
-        ["Microsoft Azure", "microsoftazure", "Azure", "0078D4"],
-        ["GitHub Pages", "githubpages", "Pages", "222222"],
-        ["Heroku", "heroku", "Heroku", "430098"]
-    ],
+"Social & Communication": [
+["Discord","discord","Discord","5865F2"],
+["YouTube","youtube","YouTube","FF0000"],
+["Twitch","twitch","Twitch","9146FF"],
+["X","x","X","000000"],
+["Reddit","reddit","Reddit","FF4500"],
+["Telegram","telegram","Telegram","26A5E4"],
+["WhatsApp","whatsapp","WhatsApp","25D366"],
+["Facebook","facebook","Facebook","0866FF"],
+["LinkedIn","linkedin","LinkedIn","0A66C2"],
+["Mastodon","mastodon","Mastodon","6364FF"],
+["Pinterest","pinterest","Pinterest","BD081C"],
+["Snapchat","snapchat","Snapchat","FFFC00"],
+["TikTok","tiktok","TikTok","000000"],
+["Instagram","instagram","Instagram","E4405F"],
+["Spotify","spotify","Spotify","1DB954"],
+["Bluesky","bluesky","Bluesky","0285FF"],
+["Threads","threads","Threads","000000"],
+["Signal","signal","Signal","3A76F0"],
+["Skype","skype","Skype","00AFF0"],
+["Messenger","messenger","Messenger","0866FF"]
+],
 
-    "Databases": [
-        ["MySQL", "mysql", "MySQL", "4479A1"],
-        ["PostgreSQL", "postgresql", "PostgreSQL", "4169E1"],
-        ["MongoDB", "mongodb", "MongoDB", "47A248"],
-        ["SQLite", "sqlite", "SQLite", "003B57"],
-        ["Redis", "redis", "Redis", "FF4438"],
-        ["MariaDB", "mariadb", "MariaDB", "003545"],
-        ["Supabase", "supabase", "Supabase", "3FCF8E"],
-        ["Prisma", "prisma", "Prisma", "2D3748"],
-        ["Django", "django", "Django", "092E20"]
-    ],
+"Web & Infrastructure": [
+["Cloudflare","cloudflare","Cloudflare","F38020"],
+["Vercel","vercel","Vercel","000000"],
+["Netlify","netlify","Netlify","00C7B7"],
+["Firebase","firebase","Firebase","DD2C00"],
+["Supabase","supabase","Supabase","3FCF8E"],
+["Docker","docker","Docker","2496ED"],
+["Kubernetes","kubernetes","Kubernetes","326CE5"],
+["Nginx","nginx","Nginx","009639"],
+["Apache","apache","Apache","D22128"],
+["Amazon AWS","amazonaws","AWS","232F3E"],
+["Google Cloud","googlecloud","Google Cloud","4285F4"],
+["Microsoft Azure","microsoftazure","Azure","0078D4"],
+["GitHub Pages","githubpages","Pages","222222"],
+["Heroku","heroku","Heroku","430098"],
+["Vultr","vultr","Vultr","007BFC"],
+["DigitalOcean","digitalocean","DigitalOcean","0080FF"],
+["Render","render","Render","46E3B7"],
+["Railway","railway","Railway","0B0D0E"],
+["Fly.io","flydotio","Fly.io","8B5CF6"],
+["Jenkins","jenkins","Jenkins","D24939"],
+["Grafana","grafana","Grafana","F46800"],
+["Prometheus","prometheus","Prometheus","E6522C"],
+["Terraform","terraform","Terraform","844FBA"],
+["Ansible","ansible","Ansible","EE0000"],
+["GitLab","gitlab","GitLab","FC6D26"],
+["Bitbucket","bitbucket","Bitbucket","0052CC"]
+],
 
-    "Design & Creative": [
-        ["Figma", "figma", "Figma", "F24E1E"],
-        ["Adobe Photoshop", "adobephotoshop", "Photoshop", "31A8FF"],
-        ["Adobe Illustrator", "adobeillustrator", "Illustrator", "FF9A00"],
-        ["Blender", "blender", "Blender", "E87D0D"],
-        ["Canva", "canva", "Canva", "00C4CC"],
-        ["GIMP", "gimp", "GIMP", "5C5543"],
-        ["Aseprite", "aseprite", "Aseprite", "7D929E"],
-        ["Krita", "krita", "Krita", "3BABFF"],
-        ["Inkscape", "inkscape", "Inkscape", "000000"]
-    ],
+"Databases": [
+["MySQL","mysql","MySQL","4479A1"],
+["PostgreSQL","postgresql","PostgreSQL","4169E1"],
+["MongoDB","mongodb","MongoDB","47A248"],
+["SQLite","sqlite","SQLite","003B57"],
+["Redis","redis","Redis","FF4438"],
+["MariaDB","mariadb","MariaDB","003545"],
+["Prisma","prisma","Prisma","2D3748"],
+["Django","django","Django","092E20"],
+["Cassandra","apachecassandra","Cassandra","1287B1"],
+["Neo4j","neo4j","Neo4j","4581C3"],
+["Elasticsearch","elasticsearch","Elasticsearch","005571"],
+["CockroachDB","cockroachlabs","CockroachDB","6933FF"],
+["DuckDB","duckdb","DuckDB","FFF000"],
+["InfluxDB","influxdb","InfluxDB","22ADF6"],
+["PlanetScale","planetscale","PlanetScale","000000"]
+],
 
-    "Gaming": [
-        ["Roblox", "roblox", "Roblox", "000000"],
-        ["Minecraft", "minecraft", "Minecraft", "62B47A"],
-        ["Unity", "unity", "Unity", "FFFFFF"],
-        ["Unreal Engine", "unrealengine", "Unreal Engine", "0E1128"],
-        ["Godot Engine", "godotengine", "Godot", "478CBF"],
-        ["Steam", "steam", "Steam", "000000"],
-        ["Epic Games", "epicgames", "Epic Games", "313131"],
-        ["PlayStation", "playstation", "PlayStation", "003791"],
-        ["Xbox", "xbox", "Xbox", "107C10"],
-        ["Nintendo", "nintendo", "Nintendo", "E60012"]
-    ],
+"Design & Creative": [
+["Figma","figma","Figma","F24E1E"],
+["Adobe Photoshop","adobephotoshop","Photoshop","31A8FF"],
+["Adobe Illustrator","adobeillustrator","Illustrator","FF9A00"],
+["Blender","blender","Blender","E87D0D"],
+["Canva","canva","Canva","00C4CC"],
+["GIMP","gimp","GIMP","5C5543"],
+["Aseprite","aseprite","Aseprite","7D929E"],
+["Krita","krita","Krita","3BABFF"],
+["Inkscape","inkscape","Inkscape","000000"],
+["DaVinci Resolve","davinciresolve","DaVinci","233A51"],
+["Adobe After Effects","adobeaftereffects","After Effects","9999FF"],
+["Adobe Premiere Pro","adobepremierepro","Premiere","9999FF"],
+["Affinity Designer","affinitydesigner","Affinity","1B72BE"],
+["Audacity","audacity","Audacity","0000CC"],
+["OBS Studio","obsstudio","OBS","302E31"],
+["Cinema 4D","maxon","Cinema 4D","004EFF"],
+["Sketch","sketch","Sketch","F7B500"]
+],
 
-    "Package Managers & Tools": [
-        ["npm", "npm", "npm", "CB3837"],
-        ["Yarn", "yarn", "Yarn", "2C8EBB"],
-        ["pnpm", "pnpm", "pnpm", "F69220"],
-        ["Bun", "bun", "Bun", "000000"],
-        ["Webpack", "webpack", "Webpack", "8DD6F9"],
-        ["Vite", "vite", "Vite", "646CFF"],
-        ["ESLint", "eslint", "ESLint", "4B32C3"],
-        ["Prettier", "prettier", "Prettier", "F7B93E"]
-    ]
+"Gaming": [
+["Roblox","roblox","Roblox","000000"],
+["Minecraft","minecraft","Minecraft","62B47A"],
+["Unity","unity","Unity","FFFFFF"],
+["Unreal Engine","unrealengine","Unreal Engine","0E1128"],
+["Godot Engine","godotengine","Godot","478CBF"],
+["Steam","steam","Steam","000000"],
+["Epic Games","epicgames","Epic Games","313131"],
+["PlayStation","playstation","PlayStation","003791"],
+["Xbox","xbox","Xbox","107C10"],
+["Nintendo","nintendo","Nintendo","E60012"],
+["Riot Games","riotgames","Riot Games","D32936"],
+["Valorant","valorant","Valorant","FA4454"],
+["Fortnite","fortnite","Fortnite","000000"],
+["League of Legends","leagueoflegends","League","C28F2C"],
+["FiveM","fivem","FiveM","F1C40F"],
+["Itch.io","itchdotio","Itch.io","FA5C5C"],
+["GOG","gogdotcom","GOG","86328A"]
+],
+
+"Package Managers & Tools": [
+["npm","npm","npm","CB3837"],
+["Yarn","yarn","Yarn","2C8EBB"],
+["pnpm","pnpm","pnpm","F69220"],
+["Bun","bun","Bun","000000"],
+["Webpack","webpack","Webpack","8DD6F9"],
+["Vite","vite","Vite","646CFF"],
+["ESLint","eslint","ESLint","4B32C3"],
+["Prettier","prettier","Prettier","F7B93E"],
+["Gradle","gradle","Gradle","02303A"],
+["Maven","apachemaven","Maven","C71A36"],
+["Pip","pypi","PyPI","3775A9"],
+["Poetry","poetry","Poetry","60A5FA"],
+["Composer","composer","Composer","885630"],
+["Cargo","rust","Cargo","000000"],
+["Homebrew","homebrew","Homebrew","FBB040"],
+["Chocolatey","chocolatey","Chocolatey","80B5E3"],
+["NuGet","nuget","NuGet","004880"],
+["Make","gnubash","Make","4EAA25"]
+],
+
+"Testing & Quality": [
+["Jest","jest","Jest","C21325"],
+["Vitest","vitest","Vitest","6E9F18"],
+["Cypress","cypress","Cypress","17202C"],
+["Playwright","playwright","Playwright","2EAD33"],
+["Selenium","selenium","Selenium","43B02A"],
+["Testing Library","testinglibrary","Testing Library","E33332"],
+["Mocha","mocha","Mocha","8D6748"],
+["JUnit","junit5","JUnit","25A162"],
+["SonarQube","sonarqube","SonarQube","4E9BCD"],
+["Code Climate","codeclimate","Code Climate","000000"],
+["Codecov","codecov","Codecov","F01F7A"],
+["Coveralls","coveralls","Coveralls","3F5767"]
+],
+
+"Documentation & Learning": [
+["MDN","mdnwebdocs","MDN","000000"],
+["Stack Overflow","stackoverflow","Stack Overflow","F58025"],
+["freeCodeCamp","freecodecamp","freeCodeCamp","0A0A23"],
+["Coursera","coursera","Coursera","0056D2"],
+["Udemy","udemy","Udemy","A435F0"],
+["Khan Academy","khanacademy","Khan Academy","14BF96"],
+["Dev.to","devdotto","DEV","0A0A0A"],
+["Hashnode","hashnode","Hashnode","2962FF"],
+["Read the Docs","readthedocs","Read the Docs","8CA1AF"],
+["GitBook","gitbook","GitBook","BBDDE5"]
+],
+
+"AI & Machine Learning": [
+["OpenAI","openai","OpenAI","412991"],
+["TensorFlow","tensorflow","TensorFlow","FF6F00"],
+["PyTorch","pytorch","PyTorch","EE4C2C"],
+["Hugging Face","huggingface","Hugging Face","FFD21E"],
+["Keras","keras","Keras","D00000"],
+["Scikit-learn","scikitlearn","Scikit-learn","F7931E"],
+["Pandas","pandas","Pandas","150458"],
+["NumPy","numpy","NumPy","013243"],
+["Jupyter","jupyter","Jupyter","F37626"],
+["Google Colab","googlecolab","Colab","F9AB00"],
+["LangChain","langchain","LangChain","1C3C3C"],
+["Ollama","ollama","Ollama","000000"],
+["Claude","anthropic","Claude","D97757"],
+["Kaggle","kaggle","Kaggle","20BEFF"]
+],
+
+"Payments & Analytics": [
+["Stripe","stripe","Stripe","635BFF"],
+["PayPal","paypal","PayPal","003087"],
+["Razorpay","razorpay","Razorpay","0C2451"],
+["Google Analytics","googleanalytics","Analytics","E37400"],
+["Plausible","plausibleanalytics","Plausible","5850EC"],
+["PostHog","posthog","PostHog","F9BD2B"],
+["Mixpanel","mixpanel","Mixpanel","7856FF"],
+["Sentry","sentry","Sentry","362D59"]
+]
+
 };
 
-const styles = [
-    "flat",
-    "flat-square",
-    "plastic",
-    "for-the-badge",
-    "social"
-];
+/* App state */
 
-const showcase = document.getElementById("showcase");
-const search = document.getElementById("search");
-const styleSelect = document.getElementById("style");
-const empty = document.getElementById("empty");
+const $ = id => document.getElementById(id);
+
+const showcase = $("showcase");
+const search = $("search");
+const styleSelect = $("style");
+const sortSelect = $("sort");
+const empty = $("empty");
+const filters = $("filters");
+const personalContent = $("personalContent");
+const personalEmpty = $("personalEmpty");
+
+const STORAGE_KEY = "shieldsExplorer_v2";
+
+const defaultState = {
+    favorites: [],
+    recent: [],
+    collections: []
+};
+
+let state = loadState();
+let activeCategory = "All";
+let activeTab = "favorites";
+let toastTimer;
+
+/* Storage */
+
+function loadState() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+        if (!saved || typeof saved !== "object") {
+            return structuredClone(defaultState);
+        }
+
+        return {
+            favorites: Array.isArray(saved.favorites) ? saved.favorites : [],
+            recent: Array.isArray(saved.recent) ? saved.recent : [],
+            collections: Array.isArray(saved.collections) ? saved.collections : []
+        };
+    } catch {
+        return {
+            favorites: [],
+            recent: [],
+            collections: []
+        };
+    }
+}
+
+function saveState() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {
+        showToast("Could not save browser storage.");
+    }
+}
+
+/* Badge utilities */
+
+function getAllBadges() {
+    return Object.entries(categories).flatMap(([category, items]) =>
+        items.map((item,index) => ({
+            id: category + ":" + index,
+            category,
+            item
+        }))
+    );
+}
+
+const allBadges = getAllBadges();
+const badgeMap = new Map(allBadges.map(badge => [badge.id,badge]));
 
 function createBadgeUrl(item, style) {
     const [name, logo, message, color] = item;
 
+    const safeName = encodeURIComponent(name);
+    const safeColor = /^[0-9a-fA-F]{6}$/.test(color) ? color : "35b997";
+
     const params = new URLSearchParams({
-        style,
-        logo,
-        logoColor: "white",
-        label: name,
-        color,
+        style: style || "flat",
         cacheSeconds: "86400"
     });
+
+    if (logo) {
+        params.set("logo",logo);
+        params.set("logoColor","white");
+    }
+
+    return `https://img.shields.io/badge/${safeName}-${safeColor}?${params.toString()}`;
+}
+
+function createCustomBadgeUrl() {
+    const label = $("customLabel").value.trim() || "Project";
+    const message = $("customMessage").value.trim() || "Active";
+    const color = $("customColor").value.replace("#","");
+    const logo = $("customLogo").value.trim();
+    const logoColor = $("customLogoColor").value.replace("#","");
+    const style = $("customStyle").value;
+
+    const params = new URLSearchParams({
+        style,
+        label,
+        message,
+        color,
+        logoColor: "#" + logoColor,
+        cacheSeconds: "86400"
+    });
+
+    if (logo) {
+        params.set("logo",logo);
+    }
 
     return "https://img.shields.io/static/v1?" + params.toString();
 }
 
-function createCard(item, style) {
-    const [name] = item;
-    const url = createBadgeUrl(item, style);
+function makeCard(item, id, category) {
+    const url = createBadgeUrl(item,styleSelect.value);
+    const isFavorite = state.favorites.includes(id);
 
-    return `
-        <article class="badge-card" data-name="${name.toLowerCase()}">
-            <div class="badge-name">${name}</div>
+    const card = document.createElement("article");
+    card.className = "badge-card";
 
-            <div class="badge-preview">
-                <img
-                    src="${url}"
-                    alt="${name} badge"
-                    loading="lazy"
-                >
-            </div>
+    const top = document.createElement("div");
+    top.className = "card-top";
 
-            <div class="badge-url">${url}</div>
+    const nameWrap = document.createElement("div");
 
-            <div class="actions">
-                <button onclick="copyText('${escapeJS(url)}')">
-                    COPY URL
-                </button>
+    const name = document.createElement("div");
+    name.className = "badge-name";
+    name.textContent = item[0];
 
-                <button class="secondary"
-                    onclick="copyText('${escapeJS(`<img src="${url}" alt="${name}">`)}')">
-                    HTML
-                </button>
+    const categoryText = document.createElement("div");
+    categoryText.className = "badge-category";
+    categoryText.textContent = category || badgeMap.get(id)?.category || "";
 
-                <button class="secondary"
-                    onclick="copyText('${escapeJS(`![${name}](${url})`)}')">
-                    MD
-                </button>
-            </div>
-        </article>
-    `;
+    nameWrap.append(name,categoryText);
+
+    const favorite = document.createElement("button");
+    favorite.className = "favorite" + (isFavorite ? " active" : "");
+    favorite.textContent = isFavorite ? "★" : "☆";
+    favorite.setAttribute("aria-label",isFavorite ? "Remove from favorites" : "Add to favorites");
+    favorite.setAttribute("aria-pressed",String(isFavorite));
+    favorite.title = isFavorite ? "Remove from favorites" : "Add to favorites";
+    favorite.addEventListener("click",() => toggleFavorite(id));
+
+    top.append(nameWrap,favorite);
+
+    const preview = document.createElement("div");
+    preview.className = "badge-preview";
+
+    const image = document.createElement("img");
+    image.src = url;
+    image.alt = item[0] + " badge";
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    image.addEventListener("error",() => {
+        const error = document.createElement("span");
+        error.className = "error";
+        error.textContent = "Preview unavailable";
+        preview.replaceChildren(error);
+    },{once:true});
+
+    preview.appendChild(image);
+
+    const urlBox = document.createElement("div");
+    urlBox.className = "badge-url";
+    urlBox.textContent = url;
+    urlBox.title = url;
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const html = `<img src="${url}" alt="${item[0]} badge">`;
+    const markdown = `![${item[0]}](${url})`;
+    const rst = `.. image:: ${url}\n   :alt: ${item[0]} badge`;
+
+    const buttons = [
+        ["URL","Copy badge URL",url],
+        ["HTML","Copy HTML",html],
+        ["MD","Copy Markdown",markdown],
+        ["RST","Copy reStructuredText",rst]
+    ];
+
+    buttons.forEach(([label,title,text],index) => {
+        const button = document.createElement("button");
+        button.className = "btn " + (index ? "secondary" : "");
+        button.textContent = label;
+        button.title = title;
+        button.addEventListener("click",() => copyText(text));
+        actions.appendChild(button);
+    });
+
+    const addButton = document.createElement("button");
+    addButton.className = "btn secondary";
+    addButton.textContent = "+ COLLECTION";
+    addButton.addEventListener("click",() => addToCollection(id));
+    actions.appendChild(addButton);
+
+    card.append(top,preview,urlBox,actions);
+
+    card.addEventListener("click",event => {
+        if (event.target.closest("button")) return;
+        markRecent(id);
+    });
+
+    return card;
 }
 
-function escapeJS(value) {
-    return value
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'")
-        .replace(/\n/g, "\\n");
+/* Category filters */
+
+function renderFilters() {
+    filters.replaceChildren();
+
+    const names = ["All",...Object.keys(categories)];
+
+    names.forEach(category => {
+        const button = document.createElement("button");
+        button.className = "filter" + (activeCategory === category ? " active" : "");
+        button.textContent = category;
+        button.setAttribute("aria-pressed",String(activeCategory === category));
+
+        button.addEventListener("click",() => {
+            activeCategory = category;
+            renderFilters();
+            render();
+        });
+
+        filters.appendChild(button);
+    });
 }
+
+/* Main rendering */
 
 function render() {
     const query = search.value.toLowerCase().trim();
-    const style = styleSelect.value;
 
-    let html = "";
-    let visibleCount = 0;
+    let results = allBadges.filter(({category,item}) => {
+        const matchesCategory =
+            activeCategory === "All" || category === activeCategory;
 
-    for (const [category, items] of Object.entries(categories)) {
-        const filtered = items.filter(item =>
-            item[0].toLowerCase().includes(query) ||
-            category.toLowerCase().includes(query)
-        );
+        const searchableText = [
+            item[0],
+            item[1],
+            item[2],
+            category
+        ].join(" ").toLowerCase();
 
-        if (!filtered.length) continue;
+        const matchesSearch = searchableText.includes(query);
 
-        visibleCount += filtered.length;
+        return matchesCategory && matchesSearch;
+    });
 
-        html += `
-            <section class="section">
-                <div class="section-title">
-                    <h2>${category}</h2>
-                    <span class="count">
-                        ${filtered.length} BADGES
-                    </span>
-                </div>
-
-                <div class="grid">
-                    ${filtered.map(item =>
-                        createCard(item, style)
-                    ).join("")}
-                </div>
-            </section>
-        `;
+    if (sortSelect.value === "az") {
+        results.sort((a,b) => a.item[0].localeCompare(b.item[0]));
     }
 
-    showcase.innerHTML = html;
-    empty.style.display = visibleCount ? "none" : "block";
+    if (sortSelect.value === "za") {
+        results.sort((a,b) => b.item[0].localeCompare(a.item[0]));
+    }
+
+    showcase.replaceChildren();
+
+    const grouped = {};
+
+    results.forEach(result => {
+        if (!grouped[result.category]) {
+            grouped[result.category] = [];
+        }
+
+        grouped[result.category].push(result);
+    });
+
+    Object.entries(grouped).forEach(([category,items]) => {
+        const section = document.createElement("section");
+        section.className = "section";
+
+        const heading = document.createElement("div");
+        heading.className = "section-title";
+
+        const title = document.createElement("h2");
+        title.textContent = category;
+
+        const count = document.createElement("span");
+        count.className = "count";
+        count.textContent = items.length + (items.length === 1 ? " BADGE" : " BADGES");
+
+        heading.append(title,count);
+
+        const grid = document.createElement("div");
+        grid.className = "grid";
+
+        items.forEach(({id,item}) => {
+            grid.appendChild(makeCard(item,id,category));
+        });
+
+        section.append(heading,grid);
+        showcase.appendChild(section);
+    });
+
+    empty.style.display = results.length ? "none" : "block";
+
+    $("resultCount").textContent =
+        `Showing ${results.length} of ${allBadges.length} badges`;
+
+    updateStats();
 }
+
+function updateStats() {
+    $("totalCount").textContent = allBadges.length;
+    $("categoryCount").textContent = Object.keys(categories).length;
+    $("favoriteCount").textContent = state.favorites.length;
+}
+
+/* Favorites and recently viewed */
+
+function toggleFavorite(id) {
+    if (state.favorites.includes(id)) {
+        state.favorites = state.favorites.filter(value => value !== id);
+        showToast("Removed from favorites");
+    } else {
+        state.favorites.push(id);
+        showToast("Added to favorites");
+    }
+
+    saveState();
+    render();
+    renderPersonal();
+}
+
+function markRecent(id) {
+    state.recent = [
+        id,
+        ...state.recent.filter(value => value !== id)
+    ].slice(0,30);
+
+    saveState();
+}
+
+function renderPersonal() {
+    personalContent.replaceChildren();
+
+    document.querySelectorAll(".tab").forEach(button => {
+        const active = button.dataset.tab === activeTab;
+        button.classList.toggle("active",active);
+        button.setAttribute("aria-selected",String(active));
+    });
+
+    personalEmpty.style.display = "none";
+
+    if (activeTab === "collections") {
+        renderCollections();
+        return;
+    }
+
+    const ids = activeTab === "favorites"
+        ? state.favorites
+        : state.recent;
+
+    const validIds = ids.filter(id => badgeMap.has(id));
+    const grid = document.createElement("div");
+    grid.className = "grid";
+
+    validIds.forEach(id => {
+        const badge = badgeMap.get(id);
+
+        if (badge) {
+            grid.appendChild(makeCard(badge.item,badge.id,badge.category));
+        }
+    });
+
+    if (validIds.length) {
+        personalContent.appendChild(grid);
+    } else {
+        personalEmpty.style.display = "block";
+    }
+}
+
+/* Collections */
+
+function createCollectionId() {
+    if (window.crypto && typeof crypto.randomUUID === "function") {
+        return crypto.randomUUID();
+    }
+
+    return "collection-" + Date.now() + "-" + Math.random().toString(36).slice(2);
+}
+
+function addToCollection(id) {
+    if (!state.collections.length) {
+        const name = prompt("Create a collection name:");
+
+        if (!name || !name.trim()) return;
+
+        state.collections.push({
+            id: createCollectionId(),
+            name: name.trim().slice(0,50),
+            badges: []
+        });
+
+        saveState();
+    }
+
+    const choices = state.collections.map((collection,index) =>
+        `${index + 1}. ${collection.name}`
+    ).join("\n");
+
+    const selected = prompt("Choose a collection by number:\n" + choices);
+
+    if (selected === null) return;
+
+    const index = Number(selected) - 1;
+    const collection = state.collections[index];
+
+    if (!collection) {
+        showToast("Invalid collection selection");
+        return;
+    }
+
+    if (!collection.badges.includes(id)) {
+        collection.badges.push(id);
+        saveState();
+        showToast("Added to " + collection.name);
+    } else {
+        showToast("Already in this collection");
+    }
+
+    renderPersonal();
+}
+
+function renderCollections() {
+    personalContent.replaceChildren();
+
+    const controls = document.createElement("div");
+    controls.className = "collection-controls";
+
+    const input = document.createElement("input");
+    input.placeholder = "New collection name...";
+    input.maxLength = 50;
+    input.setAttribute("aria-label","New collection name");
+
+    const create = document.createElement("button");
+    create.className = "btn";
+    create.textContent = "CREATE COLLECTION";
+
+    create.addEventListener("click",() => {
+        const name = input.value.trim();
+
+        if (!name) {
+            showToast("Enter a collection name");
+            input.focus();
+            return;
+        }
+
+        state.collections.push({
+            id: createCollectionId(),
+            name: name.slice(0,50),
+            badges: []
+        });
+
+        saveState();
+        renderPersonal();
+        showToast("Collection created");
+    });
+
+    input.addEventListener("keydown",event => {
+        if (event.key === "Enter") {
+            create.click();
+        }
+    });
+
+    controls.append(input,create);
+    personalContent.appendChild(controls);
+
+    if (!state.collections.length) {
+        personalEmpty.style.display = "block";
+        return;
+    }
+
+    personalEmpty.style.display = "none";
+
+    state.collections.forEach(collection => {
+        const section = document.createElement("section");
+        section.className = "collection-card";
+
+        const heading = document.createElement("div");
+        heading.className = "collection-card-header";
+
+        const title = document.createElement("h3");
+        title.textContent = collection.name;
+
+        const remove = document.createElement("button");
+        remove.className = "btn secondary";
+        remove.textContent = "DELETE";
+
+        remove.addEventListener("click",() => {
+            if (!confirm(`Delete "${collection.name}"?`)) return;
+
+            state.collections = state.collections.filter(
+                item => item.id !== collection.id
+            );
+
+            saveState();
+            renderPersonal();
+            showToast("Collection deleted");
+        });
+
+        heading.append(title,remove);
+        section.appendChild(heading);
+
+        const grid = document.createElement("div");
+        grid.className = "grid";
+
+        const validBadges = collection.badges.filter(id => badgeMap.has(id));
+
+        validBadges.forEach(id => {
+            const badge = badgeMap.get(id);
+
+            if (badge) {
+                grid.appendChild(makeCard(badge.item,badge.id,badge.category));
+            }
+        });
+
+        if (!validBadges.length) {
+            const message = document.createElement("p");
+            message.className = "collection-empty";
+            message.textContent = "This collection is empty. Add badges from the badge library.";
+            section.appendChild(message);
+        } else {
+            section.appendChild(grid);
+        }
+
+        personalContent.appendChild(section);
+    });
+}
+
+/* Custom badge generator */
+
+const customInputs = [
+    "customLabel",
+    "customMessage",
+    "customColor",
+    "customLogo",
+    "customLogoColor",
+    "customStyle"
+];
+
+function updateCustomPreview() {
+    const preview = $("customPreview");
+    const error = $("customPreviewError");
+
+    preview.hidden = false;
+    error.hidden = true;
+
+    preview.src = createCustomBadgeUrl();
+}
+
+function getCustomHtml() {
+    const label = $("customLabel").value.trim() || "Custom";
+    const url = createCustomBadgeUrl();
+
+    return `<img src="${url}" alt="${label} badge">`;
+}
+
+function getCustomMarkdown() {
+    const label = $("customLabel").value.trim() || "Custom";
+    const url = createCustomBadgeUrl();
+
+    return `![${label}](${url})`;
+}
+
+function getCustomRst() {
+    const label = $("customLabel").value.trim() || "Custom";
+    const url = createCustomBadgeUrl();
+
+    return `.. image:: ${url}\n   :alt: ${label} badge`;
+}
+
+customInputs.forEach(id => {
+    $(id).addEventListener("input",updateCustomPreview);
+    $(id).addEventListener("change",updateCustomPreview);
+});
+
+$("customPreview").addEventListener("error",() => {
+    $("customPreview").hidden = true;
+    $("customPreviewError").hidden = false;
+});
+
+$("copyCustomUrl").addEventListener("click",() => {
+    copyText(createCustomBadgeUrl());
+});
+
+$("copyCustomHtml").addEventListener("click",() => {
+    copyText(getCustomHtml());
+});
+
+$("copyCustomMd").addEventListener("click",() => {
+    copyText(getCustomMarkdown());
+});
+
+$("copyCustomRst").addEventListener("click",() => {
+    copyText(getCustomRst());
+});
+
+/* Clipboard */
 
 async function copyText(text) {
     try {
-        await navigator.clipboard.writeText(text);
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+        } else {
+            const area = document.createElement("textarea");
+
+            area.value = text;
+            area.setAttribute("readonly","");
+            area.style.position = "fixed";
+            area.style.opacity = "0";
+            area.style.pointerEvents = "none";
+
+            document.body.appendChild(area);
+            area.select();
+
+            const success = document.execCommand("copy");
+            area.remove();
+
+            if (!success) {
+                throw new Error("Copy failed");
+            }
+        }
+
         showToast("Copied successfully!");
     } catch {
-        const area = document.createElement("textarea");
-        area.value = text;
-        document.body.appendChild(area);
-        area.select();
-        document.execCommand("copy");
-        area.remove();
-        showToast("Copied!");
+        showToast("Unable to copy. Please copy manually.");
     }
 }
 
-let toastTimer;
+/* Toast notifications */
 
 function showToast(message) {
-    let toast = document.getElementById("toast");
+    let toast = $("toast");
 
     if (!toast) {
         toast = document.createElement("div");
         toast.id = "toast";
-
-        Object.assign(toast.style, {
-            position: "fixed",
-            bottom: "25px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "#19382d",
-            border: "1px solid #72fbd1",
-            color: "#72fbd1",
-            padding: "12px 20px",
-            borderRadius: "5px",
-            fontSize: "12px",
-            zIndex: "9999"
-        });
-
+        toast.setAttribute("role","status");
+        toast.setAttribute("aria-live","polite");
         document.body.appendChild(toast);
     }
 
     toast.textContent = message;
-    toast.style.display = "block";
+    toast.hidden = false;
 
     clearTimeout(toastTimer);
+
     toastTimer = setTimeout(() => {
-        toast.style.display = "none";
-    }, 1800);
+        toast.hidden = true;
+    },2200);
 }
 
-search.addEventListener("input", render);
-styleSelect.addEventListener("change", render);
+/* Events and initialization */
 
+search.addEventListener("input",render);
+styleSelect.addEventListener("change",render);
+sortSelect.addEventListener("change",render);
+
+$("clearFilters").addEventListener("click",() => {
+    search.value = "";
+    activeCategory = "All";
+    sortSelect.value = "default";
+
+    renderFilters();
+    render();
+});
+
+document.querySelectorAll(".tab").forEach(button => {
+    button.addEventListener("click",() => {
+        activeTab = button.dataset.tab;
+        renderPersonal();
+    });
+});
+
+renderFilters();
+updateCustomPreview();
 render();
+renderPersonal();
+
 </script>
 
 </body>
